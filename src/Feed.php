@@ -17,6 +17,12 @@ class Feed
 
 	/** @var string */
 	public static $userAgent = 'FeedFetcher-Google';
+	
+	/** @var string */
+	public static $proxyHostPort = '';
+
+	/** @var string */
+	public static $cookie = '';
 
 	/** @var SimpleXMLElement */
 	protected $xml;
@@ -217,6 +223,8 @@ class Feed
 			curl_setopt($curl, CURLOPT_HEADER, false);
 			curl_setopt($curl, CURLOPT_TIMEOUT, 20);
 			curl_setopt($curl, CURLOPT_ENCODING, '');
+			curl_setopt($curl, CURLOPT_COOKIE, self::$cookie);
+			curl_setopt($curl, CURLOPT_PROXY, self::$proxyHostPort);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // no echo, just return result
 			if (!ini_get('open_basedir')) {
 				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // sometime is useful :)
